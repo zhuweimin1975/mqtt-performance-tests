@@ -34,8 +34,8 @@ class ConnectToMqttBrokerTask(object):
         client.on_connect = on_connect
         start = time.time()
         client.connect(self.host, 1883, 60)
-        while client.is_connected():
-            sleep(0.001)
+        while not client.is_connected():
+            sleep(0.1)
         end = time.time()
         client.disconnect()
         return end - start
