@@ -22,6 +22,7 @@ if __name__ == '__main__':
     parser.add_argument('-t', '--topic', nargs='?', metavar='topic name', help='topic name of mqtt broker',required=1)   
     parser.add_argument('-q', '--qos', nargs='?', type=int, metavar='qos level', help='qos level of mqtt', default=0)
     parser.add_argument('-m','--cnt', nargs='?', type=int, metavar='count of messages', help='count of messages', default=1)
+    parser.add_argument('-i','--interval', nargs='?', type=float, metavar='interval for continue send message', help='interval for continue send message', default=0.01)
     param = parser.parse_args()
     print('argument : %s' % vars(param))
 
@@ -35,4 +36,5 @@ if __name__ == '__main__':
         sleep(1)
     for i in xrange(param.cnt):
         client.publish(param.topic, time.time(), param.qos)
+        sleep(param.interval)
     sleep(3)
